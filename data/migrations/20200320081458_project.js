@@ -35,6 +35,13 @@ exports.up = knex =>
     })
     .createTable('tasks', tbl => {
       tbl.increments();
+      tbl.integer('project_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('projects')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE');
       tbl.string('description')
         .notNullable();
       tbl.string('notes');
